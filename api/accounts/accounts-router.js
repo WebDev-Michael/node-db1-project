@@ -24,7 +24,9 @@ router.post('/', middleware.checkAccountPayload, middleware.checkAccountNameUniq
   }
 })
 
-router.put('/:id', middleware.checkAccountId, middleware.checkAccountPayload, middleware.checkAccountNameUnique, (req, res, next) => {
+router.put('/:id', middleware.checkAccountId, middleware.checkAccountPayload, middleware.checkAccountNameUnique, async (req, res, next) => {
+  const updated = await Account.updateById(req.params.id, req.body)
+  res.json(updated)
   try {
     res.json('update account')
   } catch (err) {
