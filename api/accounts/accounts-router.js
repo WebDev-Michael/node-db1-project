@@ -15,9 +15,10 @@ router.get('/:id', middleware.checkAccountId, async (req, res, next) => {
   res.json(req.account)
 })
 
-router.post('/', middleware.checkAccountPayload, middleware.checkAccountNameUnique, (req, res, next) => {
+router.post('/', middleware.checkAccountPayload, middleware.checkAccountNameUnique, async (req, res, next) => {
   try {
-    res.json('post account')
+    const newAccount = await Account.create(req.body)
+    res.status(201).json(newAccount)
   } catch (err) {
     next(err)
   }
