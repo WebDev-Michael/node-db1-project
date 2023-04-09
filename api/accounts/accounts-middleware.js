@@ -46,7 +46,7 @@ exports.checkAccountId = async (req, res, next) => {
   try{
     const account = await Account.getById(req.params.id)
     if(!account){
-      next({status: 404, message: 'Not Found'})
+      next({status: 404, message: 'accountbot found'})
     } else {
       req.account = account
       next()
