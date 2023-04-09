@@ -11,16 +11,19 @@ try {
 }
 })
 
-router.get('/:id', middleware.checkAccountId, async (req, res, next) => {
+router.get('/:id', 
+middleware.checkAccountId, 
+async (req, res, next) => {
   const account = await Account.getById(req.params.id)
   res.json(account)
 })
 
-router.post('/', middleware.checkAccountPayload, middleware.checkAccountNameUnique, async (req, res, next) => {
+router.post('/', 
+middleware.checkAccountPayload, 
+middleware.checkAccountNameUnique, 
+async (req, res, next) => {
   try {
-    const newAccount = await Account.create({
-      name: req.body.name.trim(), 
-      budget: req.body.budget})
+    const newAccount = await Account.create(req.body)
     res.status(201).json(newAccount)
   } catch (err) {
     next(err)
